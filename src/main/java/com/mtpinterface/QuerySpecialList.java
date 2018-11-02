@@ -154,7 +154,6 @@ public class QuerySpecialList {
                     //对比预期实际结果
                     //动态获取预期结果
                     isSuccess = isSuccess && (jo.has(entry.getKey())) && (jo.get(entry.getKey()).toString().equals(entry.getValue().toString()));
-
                 }
 
                 if (isSuccess) {
