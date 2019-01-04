@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import com.mtpinterface.util.*;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.message.BasicHttpResponse;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONObject;
@@ -120,17 +122,19 @@ public class QuerySpecialList {
 
                 System.out.println(entityFlow);
 
-                //转化返回值为json数据，以便取出resultcode自动，进行状态码的校验
+                JSONObject jo = null;
 
-                JSONObject jo = new JSONObject(entityFlow);
+                //转化返回值为json数据，以便取出resultcode自动，进行状态码的校验
+                CloseableHttpResponse closeableHttpResponse = httpclient.getCloseableHttpResponse();
+                int statusCode = closeableHttpResponse.getStatusLine().getStatusCode();
+                if (statusCode != 200) {
+                    jo = new JSONObject();
+                    jo.put("status", statusCode);
+                } else {
+                    jo = new JSONObject(entityFlow);
+                }
 
                 Map<String, String> map1 = new HashMap<String, String>();
-
-                String status = jo.get("status").toString();
-
-                //定义写入excle中的返回内容
-                //String resultCode = jo.get("rst").toString();
-                map1.put("status", status);
                 //rst为空返回
                 if (!jo.has("rst")) {
                     jo.put("rst", "");
@@ -138,7 +142,15 @@ public class QuerySpecialList {
                 if (!jo.has("msg")) {
                     jo.put("msg", "");
                 }
+                if (!jo.has("status")) {
+                    jo.put("status", 503);
+                }
 
+                String status = jo.get("status").toString();
+
+                //定义写入excle中的返回内容
+                //String resultCode = jo.get("rst").toString();
+                map1.put("status", status);
                 map1.put("rst", jo.get("rst").toString());
 
                 map1.put("msg", jo.get("msg").toString());

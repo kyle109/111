@@ -15,6 +15,8 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpclientUtil {
 
+    private CloseableHttpResponse closeableHttpResponse;
+
     public String post(String url, String json) throws ClientProtocolException, IOException{
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -32,6 +34,7 @@ public class HttpclientUtil {
 
         CloseableHttpResponse response = httpclient.execute(post);
 
+        closeableHttpResponse = response;
         //获取响应内容
 
         String entityFlow = EntityUtils.toString(response.getEntity());
@@ -44,6 +47,9 @@ public class HttpclientUtil {
 
     }
 
+    public CloseableHttpResponse getCloseableHttpResponse() {
+        return closeableHttpResponse;
+    }
 
     public String get(String url) throws ParseException, IOException{
 

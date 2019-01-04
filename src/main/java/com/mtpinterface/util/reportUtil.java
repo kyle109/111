@@ -3,11 +3,9 @@ package com.mtpinterface.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
-import org.testng.ISuite;
-import org.testng.xml.XmlSuite;
+
 import java.io.*;
-import java.util.List;
-import java.util.regex.Matcher;
+
 
 public class reportUtil extends report {
 

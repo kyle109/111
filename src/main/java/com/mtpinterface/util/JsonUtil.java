@@ -5,15 +5,24 @@ import org.json.JSONObject;
 
 public class JsonUtil {
 
-    public static String mapTojson(LinkedHashMap<String, String> map){
+    public static String mapTojson(LinkedHashMap<String, String> map) {
 
-        JSONObject jo = new JSONObject();
+//        JSONObject jo = new JSONObject();
+//
+//        jo.put("map", map);
+//
+//        String json = jo.get("map").toString();
+//
+//        return json;
 
-        jo.put("map", map);
 
-        String json = jo.get("map").toString();
+//        //net.sf.json.JSONObject 将Map转换为JSON方法
+//        JSONObject json = JSONObject.fromObject(map);
 
-        return json;
+        //org.json.JSONObject 将Map转换为JSON方法
+        JSONObject json = new JSONObject(map);
+        System.out.println(json.toString(4));
 
+        return json.toString(4);
     }
 }

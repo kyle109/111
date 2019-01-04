@@ -1,5 +1,6 @@
 package com.mtpinterface.util;
 
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -32,8 +33,9 @@ public class ExcelUtil {
 
         //Json数据均为字符型，需先将cell设置格式为String
 
-        cell.setCellType(XSSFCell.CELL_TYPE_STRING);
-        //cell.setCellType(XSSFCell.);
+        //cell.setCellType(XSSFCell.CELL_TYPE_STRING);
+        //这个方法接收的参数就是CellType枚举类型，所以用这个枚举传参
+        cell.setCellType(CellType.STRING);
 
         String cellValue = cell.getStringCellValue();
 
